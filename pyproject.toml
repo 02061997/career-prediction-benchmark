@@ -1,7 +1,7 @@
 [project]
       name = "career-prediction-benchmark"
       version = "1.0.0"
-      description = "Synthetic multi-output career prediction benchmark with calibration and subgroup evaluation."
+      description = "Paper-faithful multiclass-multioutput career prediction benchmark on a privacy-safe fixture."
       requires-python = ">=3.12,<3.13"
       dependencies = [
         "matplotlib>=3.9",

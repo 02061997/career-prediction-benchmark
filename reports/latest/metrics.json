@@ -1,20 +1,38 @@
 [
   {
-    "group_0_micro_f1": 0.744492391551215,
-    "group_1_micro_f1": 0.7339362208472157,
-    "hamming_loss": 0.18711111111111112,
-    "macro_f1": 0.6533714864672586,
-    "micro_f1": 0.7410824108241082,
-    "model": "logistic",
-    "subgroup_gap": 0.01055617070399939
+    "domain_accuracy": 0.4166666666666667,
+    "joint_accuracy": 0.31666666666666665,
+    "model": "random_forest",
+    "position_accuracy": 0.75
   },
   {
-    "group_0_micro_f1": 0.7637465051258154,
-    "group_1_micro_f1": 0.7626040137053353,
-    "hamming_loss": 0.16655555555555557,
-    "macro_f1": 0.6447453760714014,
-    "micro_f1": 0.7633780584056827,
-    "model": "random_forest",
-    "subgroup_gap": 0.001142491420480174
+    "domain_accuracy": 0.35,
+    "joint_accuracy": 0.24166666666666667,
+    "model": "decision_tree",
+    "position_accuracy": 0.725
+  },
+  {
+    "domain_accuracy": 0.39166666666666666,
+    "joint_accuracy": 0.275,
+    "model": "extra_tree",
+    "position_accuracy": 0.7166666666666667
+  },
+  {
+    "domain_accuracy": 0.38333333333333336,
+    "joint_accuracy": 0.2833333333333333,
+    "model": "extra_trees",
+    "position_accuracy": 0.75
+  },
+  {
+    "domain_accuracy": 0.36666666666666664,
+    "joint_accuracy": 0.3,
+    "model": "k_neighbors",
+    "position_accuracy": 0.75
+  },
+  {
+    "domain_accuracy": 0.44166666666666665,
+    "joint_accuracy": 0.2,
+    "model": "radius_neighbors",
+    "position_accuracy": 0.5583333333333333
   }
 ]

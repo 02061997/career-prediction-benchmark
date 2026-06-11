@@ -1,7 +1,9 @@
 import argparse
+
 import pandas as pd
+
 from .artifacts import environment, output_dir, save
-from .core import evaluate
+from .core import PUBLISHED_RESULTS, evaluate
 
 
 def main():
@@ -9,17 +11,30 @@ def main():
     parser.add_argument("--smoke", action="store_true")
     args = parser.parse_args()
     out = output_dir(args.smoke)
-    records = evaluate(500 if args.smoke else 5000)
-    frame = pd.DataFrame(records)
-    frame.to_parquet(out / "predictions.parquet", index=False)
+    records, predictions, selected = evaluate()
+    predictions.to_parquet(out / "predictions.parquet", index=False)
+    pd.DataFrame(records).to_csv(out / "benchmark.csv", index=False)
     save(out / "metrics.json", records)
-    save(out / "statistical_tests.json", {"models": len(records)})
+    save(
+        out / "statistical_tests.json",
+        {"published_results": PUBLISHED_RESULTS, "published_results_reproduced": False},
+    )
     save(out / "environment.json", environment())
     save(
         out / "data_manifest.json",
-        {"source": "sklearn deterministic synthetic multilabel generator"},
+        {
+            "source": "deterministic privacy-safe synthetic reference fixture",
+            "original_private_dataset_included": False,
+            "samples": 420,
+            "input_features": 26,
+            "selected_features": selected,
+            "outputs": {"domain_classes": 6, "position_classes": 8},
+        },
     )
-    save(out / "config.yaml", {"labels": 6, "train_fraction": 0.7})
+    save(
+        out / "config.yaml",
+        {"train_samples": 300, "test_samples": 120, "selected_feature_count": 11},
+    )
     (out / "run.log").write_text("completed\n")
     print(out)
 

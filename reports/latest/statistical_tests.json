@@ -1,3 +1,29 @@
 {
-  "models": 2
+  "published_results": {
+    "decision_tree": {
+      "domain_accuracy": 0.906,
+      "position_accuracy": 0.9323
+    },
+    "extra_tree": {
+      "domain_accuracy": 0.8965,
+      "position_accuracy": 0.905
+    },
+    "extra_trees": {
+      "domain_accuracy": 0.8587,
+      "position_accuracy": 0.907
+    },
+    "k_neighbors": {
+      "domain_accuracy": 0.9028,
+      "position_accuracy": 0.9262
+    },
+    "radius_neighbors": {
+      "domain_accuracy": 0.6065,
+      "position_accuracy": 0.4567
+    },
+    "random_forest": {
+      "domain_accuracy": 0.9121,
+      "position_accuracy": 0.9597
+    }
+  },
+  "published_results_reproduced": false
 }

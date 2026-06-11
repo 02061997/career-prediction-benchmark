@@ -1,14 +1,33 @@
-from careerbench.core import dataset, evaluate
+from careerbench.core import (
+    DOMAIN_LABELS,
+    POSITION_LABELS,
+    binary_entropy,
+    evaluate,
+    generate_reference_dataset,
+    select_features,
+)
 
 
-def test_shapes():
-    x, y, group = dataset(100)
-    assert x.shape == (100, 24)
-    assert y.shape == (100, 6)
-    assert len(group) == 100
+def test_paper_dimensions():
+    data = generate_reference_dataset()
+    assert data.features.shape == (420, 26)
+    assert data.targets.shape == (420, 2)
+    assert len(DOMAIN_LABELS) == 6
+    assert len(POSITION_LABELS) == 8
+    assert len(select_features(data.features, data.targets)) == 11
 
 
-def test_metrics_are_bounded():
-    for record in evaluate(300):
-        assert 0 <= record["micro_f1"] <= 1
-        assert 0 <= record["hamming_loss"] <= 1
+def test_entropy_bounds():
+    data = generate_reference_dataset()
+    assert all(0 <= binary_entropy(data.features[name].to_numpy()) <= 1 for name in data.features)
+
+
+def test_all_six_classifiers_and_metrics():
+    records, predictions, selected = evaluate()
+    assert len(records) == 6
+    assert len(predictions) == 120
+    assert len(selected) == 11
+    for record in records:
+        assert 0 <= record["domain_accuracy"] <= 1
+        assert 0 <= record["position_accuracy"] <= 1
+        assert 0 <= record["joint_accuracy"] <= 1

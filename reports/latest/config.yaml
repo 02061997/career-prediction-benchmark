@@ -1,4 +1,5 @@
 {
-  "labels": 6,
-  "train_fraction": 0.7
+  "selected_feature_count": 11,
+  "test_samples": 120,
+  "train_samples": 300
 }
