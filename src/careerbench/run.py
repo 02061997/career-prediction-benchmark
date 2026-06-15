@@ -2,7 +2,7 @@ import argparse
 
 import pandas as pd
 
-from .artifacts import environment, output_dir, save
+from .artifacts import environment, output_dir, publish_latest, save
 from .core import PUBLISHED_RESULTS, evaluate
 
 
@@ -17,7 +17,17 @@ def main():
     save(out / "metrics.json", records)
     save(
         out / "statistical_tests.json",
-        {"published_results": PUBLISHED_RESULTS, "published_results_reproduced": False},
+        {
+            "published_results": PUBLISHED_RESULTS,
+            "published_results_reproduced": False,
+            "local_reference_results": records,
+            "not_run": [
+                {
+                    "experiment": "Original LinkedIn-derived 420-person benchmark",
+                    "reason": "The private dataset contains personal information and is unavailable.",
+                }
+            ],
+        },
     )
     save(out / "environment.json", environment())
     save(
@@ -36,6 +46,8 @@ def main():
         {"train_samples": 300, "test_samples": 120, "selected_feature_count": 11},
     )
     (out / "run.log").write_text("completed\n")
+    if not args.smoke:
+        publish_latest(out)
     print(out)
 
 

@@ -17,10 +17,11 @@ personal information.
 
 ## Local reference results
 
-The June 11, 2026 synthetic run validates the complete dimensions, feature
+The June 15, 2026 synthetic run validates the complete dimensions, feature
 selection, train/test split, multioutput behavior, and six-model benchmark.
 Accuracies are intentionally not compared numerically with the private dataset:
 Random Forest obtained 41.67% domain, 75.00% position, and 31.67% strict joint
 accuracy on the synthetic fixture.
 
-Machine-readable evidence is under `reports/latest/`.
+Machine-readable evidence, including the unavailable private-dataset
+experiment marked `NOT_RUN`, is under `reports/latest/`.
