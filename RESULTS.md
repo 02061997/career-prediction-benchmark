@@ -25,3 +25,7 @@ accuracy on the synthetic fixture.
 
 Machine-readable evidence, including the unavailable private-dataset
 experiment marked `NOT_RUN`, is under `reports/latest/`.
+
+`reports/latest/privacy_fairness.json` records the synthetic fixture boundary:
+no direct identifiers, no demographic sensitive attributes, no redistributed
+private records, and no group-fairness claims.

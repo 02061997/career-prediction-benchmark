@@ -4,6 +4,7 @@ from careerbench.core import (
     binary_entropy,
     evaluate,
     generate_reference_dataset,
+    privacy_audit,
     select_features,
 )
 
@@ -31,3 +32,12 @@ def test_all_six_classifiers_and_metrics():
         assert 0 <= record["domain_accuracy"] <= 1
         assert 0 <= record["position_accuracy"] <= 1
         assert 0 <= record["joint_accuracy"] <= 1
+
+
+def test_privacy_audit_blocks_identifier_and_fairness_overclaim():
+    audit = privacy_audit(generate_reference_dataset())
+    assert audit["synthetic_fixture"]
+    assert not audit["direct_identifier_columns_present"]
+    assert not audit["sensitive_attribute_columns_present"]
+    assert not audit["private_records_redistributed"]
+    assert not audit["fairness_metrics_claimed"]

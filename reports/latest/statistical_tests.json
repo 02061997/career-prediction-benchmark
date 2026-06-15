@@ -43,6 +43,20 @@
       "reason": "The private dataset contains personal information and is unavailable."
     }
   ],
+  "privacy_fairness_audit": {
+    "binary_feature_matrix": true,
+    "direct_identifier_columns_present": false,
+    "fairness_metrics_claimed": false,
+    "limitations": [
+      "The executable fixture is synthetic and contains no direct identifiers.",
+      "The private LinkedIn-derived records are not redistributed.",
+      "No demographic sensitive attributes are modeled, so group fairness metrics are not claimed.",
+      "Career prediction can reinforce labor-market bias and should not be used for automated hiring decisions."
+    ],
+    "private_records_redistributed": false,
+    "sensitive_attribute_columns_present": false,
+    "synthetic_fixture": true
+  },
   "published_results": {
     "decision_tree": {
       "domain_accuracy": 0.906,

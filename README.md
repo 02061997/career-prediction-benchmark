@@ -17,3 +17,7 @@ make reproduce-results
 
 See `PAPER_SPEC.md` and `RESULTS.md` for the distinction between published and
 local reference results.
+
+See `PRIVACY_FAIRNESS.md` for the public boundary: the runnable fixture has no
+direct identifiers or demographic sensitive attributes, and the repository does
+not claim group-fairness conclusions.

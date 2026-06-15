@@ -58,6 +58,25 @@ FEATURE_NAMES = (
     "career_change",
 )
 
+SENSITIVE_ATTRIBUTE_NAMES = (
+    "name",
+    "email",
+    "phone",
+    "address",
+    "age",
+    "gender",
+    "race",
+    "ethnicity",
+    "nationality",
+)
+
+PRIVACY_FAIRNESS_LIMITATIONS = (
+    "The executable fixture is synthetic and contains no direct identifiers.",
+    "The private LinkedIn-derived records are not redistributed.",
+    "No demographic sensitive attributes are modeled, so group fairness metrics are not claimed.",
+    "Career prediction can reinforce labor-market bias and should not be used for automated hiring decisions.",
+)
+
 
 @dataclass(frozen=True)
 class CareerDataset:
@@ -125,6 +144,21 @@ def generate_reference_dataset(samples: int = 420, seed: int = 7) -> CareerDatas
         pd.DataFrame(features, columns=FEATURE_NAMES),
         pd.DataFrame({"domain": domains, "position": positions}),
     )
+
+
+def privacy_audit(data: CareerDataset) -> dict[str, object]:
+    feature_names = {name.lower() for name in data.features.columns}
+    target_names = {name.lower() for name in data.targets.columns}
+    forbidden = set(SENSITIVE_ATTRIBUTE_NAMES)
+    return {
+        "direct_identifier_columns_present": bool(feature_names & forbidden),
+        "sensitive_attribute_columns_present": bool((feature_names | target_names) & forbidden),
+        "binary_feature_matrix": bool(data.features.isin([0, 1]).all().all()),
+        "synthetic_fixture": True,
+        "private_records_redistributed": False,
+        "fairness_metrics_claimed": False,
+        "limitations": list(PRIVACY_FAIRNESS_LIMITATIONS),
+    }
 
 
 def select_features(features: pd.DataFrame, targets: pd.DataFrame, count: int = 11) -> list[str]:
